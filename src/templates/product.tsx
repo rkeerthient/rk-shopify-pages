@@ -77,6 +77,7 @@ export const config: TemplateConfig = {
     ],
     filter: {
       entityTypes: ["product"],
+      savedFilterIds: ["1369764093"],
     },
     localization: {
       locales: ["en"],
@@ -172,10 +173,8 @@ const Inner = ({ document }: any) => {
   const [currentProduct, setCurrentProduct] = useState(
     c_greysonProductVariants[0]
   );
-  console.log(JSON.stringify(currentProduct));
 
   const addToCartHandle = async () => {
-    console.log(JSON.stringify(currentProduct));
     const imgUrl = currentProduct.c_greysonProductPhoto.url;
 
     dispatch(addToCart({ name, image: imgUrl }));
@@ -183,7 +182,6 @@ const Inner = ({ document }: any) => {
     try {
       let request = await fetch(`${addToCartUrl}`);
       const res = await request.json();
-      console.log(JSON.stringify(res));
     } catch (error) {
       console.log(error);
     }

@@ -14,7 +14,6 @@ const ProductCard = ({ result }: CardProps<any>) => {
     );
     return facet?.options.find((item) => item.selected === true)?.value;
   });
-  console.log(slug);
 
   useEffect(() => {
     if (selected) {
