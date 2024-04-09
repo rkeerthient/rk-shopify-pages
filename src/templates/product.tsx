@@ -266,14 +266,16 @@ const Inner = ({ document }: any) => {
                                 );
                               }}
                             >
-                              <span
-                                style={{
-                                  background:
-                                    item.c_greysonColorFamily.toLowerCase(),
-                                }}
-                                aria-hidden="true"
-                                className="h-8 w-8 rounded-full border border-black border-opacity-10"
-                              />
+                              {item.c_greysonColorFamily && (
+                                <span
+                                  style={{
+                                    background:
+                                      item.c_greysonColorFamily.toLowerCase(),
+                                  }}
+                                  aria-hidden="true"
+                                  className="h-8 w-8 rounded-full border border-black border-opacity-10"
+                                />
+                              )}
                             </RadioGroup.Option>
                           )
                         )}
