@@ -336,9 +336,13 @@ const Inner = ({ document }: any) => {
                 <div className="mt-10" style={{ fontFamily: "sans-serif" }}>
                   <h2 className="text-xl font-normal mb-6">Description</h2>
 
-                  <LexicalRichText
-                    serializedAST={JSON.stringify(richTextDescriptionV2.json)}
-                  ></LexicalRichText>
+                  {richTextDescriptionV2 ? (
+                    <LexicalRichText
+                      serializedAST={JSON.stringify(richTextDescriptionV2.json)}
+                    ></LexicalRichText>
+                  ) : (
+                    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam soluta, accusantium nobis maxime repudiandae nostrum animi harum quisquam saepe quidem ducimus consectetur dolore perspiciatis alias eos, aspernatur aliquam deleniti tenetur."
+                  )}
                 </div>
               </div>
             </div>
