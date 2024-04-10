@@ -67,11 +67,8 @@ const ProductCard = ({ result }: CardProps<any>) => {
             ))}
           </div>
           <div>{name}</div>
-          <div
-            className="w-fit border p-2 hover:cursor-pointer"
-            // onClick={addToCartHandle}
-          >
-            Add to cart
+          <div className="w-fit border p-2 hover:cursor-pointer">
+            View details
           </div>
         </div>
       </a>

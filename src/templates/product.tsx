@@ -176,15 +176,7 @@ const Inner = ({ document }: any) => {
 
   const addToCartHandle = async () => {
     const imgUrl = currentProduct.c_greysonProductPhoto.url;
-
     dispatch(addToCart({ name, image: imgUrl }));
-    const addToCartUrl = `/api/addToCart?cartId=${cartId}&variantId=${currentProduct.id}`;
-    try {
-      let request = await fetch(`${addToCartUrl}`);
-      const res = await request.json();
-    } catch (error) {
-      console.log(error);
-    }
   };
   return (
     <div
