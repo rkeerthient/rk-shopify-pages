@@ -5,18 +5,12 @@ const checkout = async (
 ): Promise<PagesHttpResponse> => {
   const api_key = YEXT_PUBLIC_STOREFRONT_ACCESS_TOKEN as string;
   const shop_name = YEXT_PUBLIC_SHOPNAME as string;
+  const { lineItems } = request.queryParams;
+
   let input = {
-    lineItems: [
-      {
-        variantId: "gid://shopify/ProductVariant/42746777239604",
-        quantity: 1,
-      },
-      {
-        variantId: "gid://shopify/ProductVariant/42746783596596",
-        quantity: 1,
-      },
-    ],
+    lineItems: JSON.parse(lineItems),
   };
+
   const getResponse = await fetch(
     `https://${shop_name}.myshopify.com/api/2021-10/graphql.json`,
     {
@@ -46,7 +40,6 @@ const checkout = async (
   );
 
   const resp = await getResponse.json();
-  console.log(JSON.stringify(resp));
 
   return {
     body: JSON.stringify(resp.data),

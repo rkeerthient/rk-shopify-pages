@@ -25,6 +25,8 @@ import { useDispatch } from "react-redux";
 import PageLayout from "../components/page-layout";
 import "../index.css";
 import { addToCart } from "../redux/cartSlice";
+import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { BsCircle } from "react-icons/bs";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -102,8 +104,6 @@ export const getRedirects: GetRedirects<TemplateProps> = ({ document }) => {
  * This can include the title, meta tags, script tags, etc.
  */
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
-  relativePrefixToRoot,
-  path,
   document,
 }): HeadConfig => {
   return {
@@ -122,11 +122,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   };
 };
 
-const Product: Template<TemplateRenderProps> = ({
-  relativePrefixToRoot,
-  path,
-  document,
-}) => {
+const Product: Template<TemplateRenderProps> = ({ document }) => {
   return (
     <>
       <PageLayout>
@@ -139,30 +135,28 @@ const Product: Template<TemplateRenderProps> = ({
 export default Product;
 
 const Inner = ({ document }: any) => {
-  const {
-    _site,
-    c_greysonProductVariants,
-    c_greysonProductPage,
-    c_greysonPattern,
-    c_greysonProductCategory,
-    c_greysonSleeveLength,
-    c_greysonProductRole,
-    c_greysonColorList,
-    c_greysonStatus,
-    c_greysonDepartment,
-    name,
-    richTextDescriptionV2,
-    c_greysonProductPhoto,
-  } = document;
+  const { c_greysonProductVariants, name, richTextDescriptionV2 } = document;
   const dispatch = useDispatch();
-
+  const [quantity, setQuantity] = useState(1);
+  const [sizeVariant, setSizeVariant] = useState<any>({});
   const [currentProduct, setCurrentProduct] = useState(
     c_greysonProductVariants[0]
   );
+  console.log(JSON.stringify(sizeVariant));
 
   const addToCartHandle = async () => {
     const imgUrl = currentProduct.c_greysonProductPhoto.url;
-    dispatch(addToCart({ name, image: imgUrl }));
+    dispatch(
+      addToCart({
+        name,
+        image: imgUrl,
+        quantity,
+        colorFamily: currentProduct.c_greysonColorFamily,
+        colorName: currentProduct.color,
+        amount: currentProduct.c_greysonOldPrice.value,
+        id: sizeVariant.entityId,
+      })
+    );
   };
   return (
     <div
@@ -175,13 +169,20 @@ const Inner = ({ document }: any) => {
             <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
               <div className="lg:col-span-5 lg:col-start-8">
                 <div className="flex flex-col justify-between">
-                  <div className="text-lg font-medium flex  items-center gap-4">
+                  <div className="text-lg font-medium flex  items-center g ">
                     {currentProduct.c_greysonOldPrice.value >= 1 && (
                       <div className="line-through">
                         ${currentProduct.c_greysonOldPrice.value}
                       </div>
                     )}
-                    <div>${currentProduct.price.value}</div>
+                    <div className="ml-2 mr-4">
+                      ${currentProduct.price.value}
+                    </div>
+                    {currentProduct.c_greysonOldPrice.value >= 1 && (
+                      <div className="text-xs p-2 py-1 rounded-full bg-cyan-400">
+                        Sale
+                      </div>
+                    )}
                   </div>
                   <h1
                     style={{ fontFamily: "Baskerville" }}
@@ -281,6 +282,7 @@ const Inner = ({ document }: any) => {
                             <RadioGroup.Option
                               key={index}
                               value={item.size}
+                              onClick={() => setSizeVariant(item)}
                               className={({ active, checked }) =>
                                 classNames(
                                   item.inventory >= 1
@@ -304,10 +306,48 @@ const Inner = ({ document }: any) => {
                       </div>
                     </RadioGroup>
                   </div>
-
+                  <div className="my-4">Quantity</div>
+                  <div
+                    className={`flex gap-4 mt-8 items-center border w-fit p-4 ${
+                      JSON.stringify(sizeVariant) !== "{}"
+                        ? "cursor-pointer focus:outline-none"
+                        : "cursor-not-allowed opacity-25"
+                    }`}
+                  >
+                    <div>
+                      <MinusIcon
+                        className={`h-4 w-4  ${quantity <= 1 ? `cursor-not-allowed opacity-25` : `hover:cursor-pointer`}`}
+                        onClick={() =>
+                          quantity >= 2 && setQuantity(quantity - 1)
+                        }
+                      />
+                    </div>
+                    <div>{quantity}</div>
+                    <div>
+                      <PlusIcon
+                        className={`h-4 w-4 ${quantity == sizeVariant.inventory ? `hover:cursor-not-allowed cursor-not-allowed opacity-25` : `hover:cursor-pointer`}`}
+                        onClick={() =>
+                          quantity < sizeVariant.inventory &&
+                          setQuantity(quantity + 1)
+                        }
+                      />
+                    </div>
+                  </div>
+                  {sizeVariant.inventory <= 5 && (
+                    <div className="my-4 flex gap-2 items-center">
+                      <div>
+                        <BsCircle className="h-2 w-2 bg-red-500 rounded-full" />
+                      </div>
+                      <div> Low stock: {sizeVariant.inventory} left</div>
+                    </div>
+                  )}
                   <div
                     onClick={addToCartHandle}
-                    className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className={`mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                      JSON.stringify(sizeVariant) !== "{}"
+                        ? "cursor-pointer focus:outline-none"
+                        : "cursor-not-allowed opacity-25"
+                    }`}
                   >
                     Add to cart
                   </div>

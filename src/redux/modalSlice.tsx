@@ -14,7 +14,6 @@ const modalSlice = createSlice({
   reducers: {
     toggleModal: (state, action: PayloadAction<{ isOpen: boolean }>) => {
       const { isOpen } = action.payload;
-      console.log("New modal state:", isOpen);
       state.isOpen = isOpen;
     },
   },
