@@ -2,9 +2,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CartState } from "../redux/cartSlice";
+import { CartState, removeFromCart } from "../redux/cartSlice";
 import { ModalProps, toggleModal } from "../redux/modalSlice";
-import CartItem from "./cartItem";
 export interface CartProps {
   isOpen: boolean;
 }
@@ -27,10 +26,6 @@ interface LineItemProps {
   quantity: number;
 }
 
-interface LineItemsProps {
-  LineItems: LineItemProps[] | any[];
-}
-
 export default function Cart() {
   const { total, cartItems } = useSelector(
     (state: { cart: CartState }) => state.cart
@@ -44,8 +39,6 @@ export default function Cart() {
       quantity: item.quantity || 1,
     }));
 
-    console.log(JSON.stringify(lineItems));
-
     const checkout = `/api/checkout?lineItems=${JSON.stringify(lineItems)}`;
 
     try {
@@ -58,6 +51,10 @@ export default function Cart() {
   };
   const closeCart = () => {
     dispatch(toggleModal({ isOpen: false }));
+  };
+
+  const handleRemove = (id: string) => {
+    dispatch(removeFromCart({ id }));
   };
 
   return (
@@ -113,9 +110,52 @@ export default function Cart() {
                             role="list"
                             className="-my-6 divide-y divide-gray-200"
                           >
-                            {cartItems.map((product, index) => (
-                              <CartItem product={product} key={index} />
-                            ))}
+                            {cartItems.map((product, index) => {
+                              const {
+                                name,
+                                image,
+                                quantity,
+                                colorName,
+                                amount,
+                                id,
+                              } = product;
+                              return (
+                                <li key={index} className="flex py-6">
+                                  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                    <img
+                                      src={image}
+                                      alt={image}
+                                      className="h-full w-full object-cover object-center"
+                                    />
+                                  </div>
+
+                                  <div className="ml-4 flex flex-1 flex-col">
+                                    <div>
+                                      <div className="flex justify-between text-base font-medium text-gray-900">
+                                        <h3>{name}</h3>
+                                        <p className="ml-4">{amount}</p>
+                                      </div>
+                                      <p className="mt-1 text-sm text-gray-500">
+                                        {colorName}
+                                      </p>
+                                    </div>
+                                    <div className="flex flex-1 items-end justify-between text-sm">
+                                      <p className="text-gray-500">
+                                        Qty {quantity}
+                                      </p>
+                                      <div className="flex">
+                                        <div
+                                          onClick={() => handleRemove(id)}
+                                          className="hover:cursor-pointer font-medium text-indigo-600 hover:text-indigo-500"
+                                        >
+                                          Remove
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              );
+                            })}
                           </ul>
                         </div>
                       </div>
