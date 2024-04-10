@@ -1,10 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { CartItem, CartState, clearCart } from "../redux/cartSlice";
-import { ShopifyState } from "../redux/shopifyCartSlice";
-import { CloseIcon } from "./icons";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { CartState } from "../redux/cartSlice";
 import { ModalProps, toggleModal } from "../redux/modalSlice";
 export interface CartProps {
   isOpen: boolean;
@@ -32,12 +30,9 @@ export default function Cart() {
   const { isOpen } = useSelector((state: { modal: ModalProps }) => state.modal);
 
   useEffect(() => {
-    console.log(isOpen + "----");
+    console.log(isOpen);
   }, [isOpen]);
 
-  const { checkoutUrl } = useSelector(
-    (state: { shopify: ShopifyState }) => state.shopify
-  );
   const handleCheckout = async () => {
     console.log("unn");
 
@@ -167,18 +162,15 @@ export default function Cart() {
                           Checkout
                         </div>
                       </div>
-                      <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                        <p>
-                          or{" "}
-                          <div
-                            type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={closeCart}
-                          >
-                            Continue Shopping
-                            <span aria-hidden="true"> &rarr;</span>
-                          </div>
-                        </p>
+                      <div className="mt-3 gap-4 flex flex-col justify-center text-center text-sm text-gray-500">
+                        <div>or</div>
+                        <div
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                          onClick={closeCart}
+                        >
+                          Continue Shopping
+                          <span aria-hidden="true"> &rarr;</span>
+                        </div>
                       </div>
                     </div>
                   </div>

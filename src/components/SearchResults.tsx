@@ -1,4 +1,4 @@
-import { useSearchActions, useSearchState } from "@yext/search-headless-react";
+import { useSearchActions } from "@yext/search-headless-react";
 import {
   AppliedFilters,
   Facets,
@@ -6,14 +6,12 @@ import {
   Pagination,
   ResultsCount,
   SearchBar,
-  StandardCard,
   VerticalResults,
 } from "@yext/search-ui-react";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Loader from "./Loader";
 import ProductCard from "./ProductCard";
-import { useDispatch } from "react-redux";
-import { CartState } from "../redux/cartSlice";
 
 type verticalKey = {
   verticalKey: string;
@@ -52,7 +50,8 @@ const ProfessionalPage = ({ verticalKey }: verticalKey) => {
               <VerticalResults
                 CardComponent={ProductCard}
                 customCssClasses={{
-                  verticalResultsContainer: "flex grid grid-cols-4 gap-4",
+                  verticalResultsContainer:
+                    "mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:grid lg:grid-cols-4 lg:space-x-0 border  border-gray-200",
                 }}
               />
               <Pagination />

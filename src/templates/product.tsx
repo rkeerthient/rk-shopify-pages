@@ -8,6 +8,7 @@
  * template for every eligible entity in your Knowledge Graph.
  */
 
+import { RadioGroup } from "@headlessui/react";
 import {
   GetHeadConfig,
   GetPath,
@@ -18,25 +19,12 @@ import {
   TemplateProps,
   TemplateRenderProps,
 } from "@yext/pages";
-import Banner from "../components/banner";
-import Contact from "../components/contact";
-import Cta from "../components/cta";
-import Hours from "../components/hours";
-import List from "../components/list";
-import PageLayout from "../components/page-layout";
-import StaticMap from "../components/static-map";
-import "../index.css";
-import { RadioGroup } from "@headlessui/react";
-import {
-  CurrencyDollarIcon,
-  GlobeAmericasIcon,
-  StarIcon,
-} from "@heroicons/react/24/outline";
+import { Image, LexicalRichText } from "@yext/pages-components";
 import { useState } from "react";
-import { LexicalRichText, Image } from "@yext/pages-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import PageLayout from "../components/page-layout";
+import "../index.css";
 import { addToCart } from "../redux/cartSlice";
-import { ShopifyState } from "../redux/shopifyCartSlice";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -167,9 +155,7 @@ const Inner = ({ document }: any) => {
     c_greysonProductPhoto,
   } = document;
   const dispatch = useDispatch();
-  const { cartId } = useSelector(
-    (state: { shopify: ShopifyState }) => state.shopify
-  );
+
   const [currentProduct, setCurrentProduct] = useState(
     c_greysonProductVariants[0]
   );
