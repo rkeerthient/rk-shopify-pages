@@ -3,6 +3,7 @@ import { CartState } from "../redux/cartSlice";
 import { toggleModal } from "../redux/modalSlice";
 import Cart from "./cart";
 import { CartIcon } from "./icons";
+import { useEffect } from "react";
 
 type Link = {
   label: string;
@@ -24,7 +25,9 @@ const Header = () => {
   const { cartItems } = useSelector((state: { cart: CartState }) => state.cart);
 
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    localStorage.setItem("localCart", JSON.stringify(cartItems));
+  }, [cartItems]);
   const linkDoms = links.map((link) => (
     <div key={link.label}>
       <a href={link.url} target="_blank" rel="noreferrer">

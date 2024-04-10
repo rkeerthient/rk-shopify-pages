@@ -15,9 +15,11 @@ export interface CartState {
   total: number;
   isLoading: boolean;
 }
-
 const initialState: CartState = {
-  cartItems: [],
+  cartItems:
+    typeof localStorage !== "undefined" && localStorage.getItem("localCart")
+      ? JSON.parse(localStorage.getItem("localCart")!)
+      : [],
   total: 0,
   isLoading: true,
 };
