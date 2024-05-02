@@ -52,7 +52,9 @@ const Header = () => {
           >
             <CartIcon />
             <div className="absolute top-[-0.5rem] right-[-0.5rem] w-6 h-6 rounded-full bg-primary-light flex items-center justify-center">
-              <p className="text-black">{cartItems.length}</p>
+              <p className="text-black">
+                {cartItems.length >= 1 ? cartItems.length : 0}
+              </p>
             </div>
           </div>
           <Cart />

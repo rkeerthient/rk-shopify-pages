@@ -3,7 +3,13 @@ import { useSearchState } from "@yext/search-headless-react";
 import { CardProps } from "@yext/search-ui-react";
 import { useEffect, useState } from "react";
 const ProductCard = ({ result }: CardProps<any>) => {
-  const { name, primaryPhoto, c_greysonProductVariants, slug } = result.rawData;
+  const {
+    name,
+    primaryPhoto,
+    c_greysonProductPhoto,
+    c_greysonProductVariants,
+    slug,
+  } = result.rawData;
   const [active, setActive] = useState(c_greysonProductVariants[0]);
   let selected = useSearchState((state) => {
     const facet = state.filters.facets?.find(
@@ -26,16 +32,27 @@ const ProductCard = ({ result }: CardProps<any>) => {
       <div className=" border-b border-r border-gray-200 p-4 inline-flex w-64 flex-col text-center lg:w-auto">
         <div className="group relative">
           <div className=" w-full overflow-hidden rounded-md bg-gray-200">
-            {c_greysonProductVariants.map((item: any, index: any) => (
-              <Image
-                key={index}
-                layout="fixed"
-                width={300}
-                height={380}
-                image={item.c_greysonProductPhoto}
-                className={` group-hover:opacity-75 ${active.id === item.id ? `block` : `hidden`}`}
-              />
-            ))}
+            {c_greysonProductVariants.map((item: any, index: any) =>
+              item.c_greysonProductPhoto ? (
+                <Image
+                  key={index}
+                  layout="fixed"
+                  width={300}
+                  height={380}
+                  image={item.c_greysonProductPhoto}
+                  className={` group-hover:opacity-75 ${active.id === item.id ? `block` : `hidden`}`}
+                />
+              ) : (
+                <Image
+                  key={index}
+                  layout="fixed"
+                  width={300}
+                  height={380}
+                  image={c_greysonProductPhoto}
+                  className={` group-hover:opacity-75 ${active.id === item.id ? `block` : `hidden`}`}
+                />
+              )
+            )}
           </div>
           <div className="mt-6">
             <p className="text-sm text-gray-500">
