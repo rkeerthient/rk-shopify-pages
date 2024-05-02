@@ -12,15 +12,11 @@ export interface CartItem {
 
 export interface CartState {
   cartItems: CartItem[];
-  total: number;
   isLoading: boolean;
 }
+
 const initialState: CartState = {
-  cartItems:
-    typeof localStorage !== "undefined" && localStorage.getItem("localCart")
-      ? JSON.parse(localStorage.getItem("localCart")!)
-      : [],
-  total: 0,
+  cartItems: [],
   isLoading: true,
 };
 
@@ -39,8 +35,12 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       state.cartItems.push(action.payload);
     },
+    setInitialCart: (state, action) => {
+      state.cartItems = action.payload;
+    },
   },
 });
 
-export const { clearCart, addToCart, removeFromCart } = cartSlice.actions;
+export const { clearCart, addToCart, removeFromCart, setInitialCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;
