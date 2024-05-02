@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface CartItem {
   id: string;
@@ -15,13 +15,19 @@ export interface CartState {
   total: number;
   isLoading: boolean;
 }
+
+// Function to load state from local storage
+function loadCart() {
+  if (typeof window !== "undefined" && localStorage.getItem("localCart")) {
+    return JSON.parse(localStorage.getItem("localCart")!);
+  }
+  return [];
+}
+
 const initialState: CartState = {
-  cartItems:
-    typeof localStorage !== "undefined" && localStorage.getItem("localCart")
-      ? JSON.parse(localStorage.getItem("localCart")!)
-      : [],
+  cartItems: loadCart(),
   total: 0,
-  isLoading: true,
+  isLoading: false,
 };
 
 const cartSlice = createSlice({
@@ -30,14 +36,30 @@ const cartSlice = createSlice({
   reducers: {
     clearCart: (state) => {
       state.cartItems = [];
+      state.total = 0;
     },
-    removeFromCart: (state, action) => {
+    removeFromCart: (state, action: PayloadAction<{ id: string }>) => {
+      const item = state.cartItems.find(
+        (item) => item.id === action.payload.id
+      );
+      if (item) {
+        state.total -= item.amount * item.quantity;
+      }
       state.cartItems = state.cartItems.filter(
         (item) => item.id !== action.payload.id
       );
     },
-    addToCart: (state, action) => {
-      state.cartItems.push(action.payload);
+    addToCart: (state, action: PayloadAction<CartItem>) => {
+      const existingItem = state.cartItems.find(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItem) {
+        existingItem.quantity += action.payload.quantity;
+        state.total += action.payload.amount * action.payload.quantity;
+      } else {
+        state.cartItems.push({ ...action.payload });
+        state.total += action.payload.amount * action.payload.quantity;
+      }
     },
   },
 });

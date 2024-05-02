@@ -142,7 +142,6 @@ const Inner = ({ document }: any) => {
   const [currentProduct, setCurrentProduct] = useState(
     c_greysonProductVariants[0]
   );
-  console.log(JSON.stringify(sizeVariant));
 
   const addToCartHandle = async () => {
     const imgUrl = currentProduct.c_greysonProductPhoto.url;
@@ -158,8 +157,6 @@ const Inner = ({ document }: any) => {
       })
     );
   };
-
-  
   return (
     <div
       className="centered-container text-[#2f2f2f]"

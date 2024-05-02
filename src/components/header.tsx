@@ -3,7 +3,7 @@ import { CartState } from "../redux/cartSlice";
 import { toggleModal } from "../redux/modalSlice";
 import Cart from "./cart";
 import { CartIcon } from "./icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Link = {
   label: string;
@@ -23,11 +23,16 @@ const links: Link[] = [
 
 const Header = () => {
   const { cartItems } = useSelector((state: { cart: CartState }) => state.cart);
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   const dispatch = useDispatch();
+
+  // Only run this effect on the client
   useEffect(() => {
     localStorage.setItem("localCart", JSON.stringify(cartItems));
+    setCartItemCount(cartItems.length);
   }, [cartItems]);
+
   const linkDoms = links.map((link) => (
     <div key={link.label}>
       <a href={link.url} target="_blank" rel="noreferrer">
@@ -35,12 +40,14 @@ const Header = () => {
       </a>
     </div>
   ));
+
   return (
     <div className="bg-[#645cff]">
       <div className="centered-container">
-        <nav className="py-6 flex items-center justify-between ">
+        <nav className="py-6 flex items-center justify-between">
           <img
             src="https://cdn.fs.brandfolder.com/cache=expiry:604800/deY3VGFpSjC761Abjbfc"
+            alt="Turtlehead Tacos Logo"
             width="50"
             height="50"
           ></img>
@@ -52,9 +59,7 @@ const Header = () => {
           >
             <CartIcon />
             <div className="absolute top-[-0.5rem] right-[-0.5rem] w-6 h-6 rounded-full bg-primary-light flex items-center justify-center">
-              <p className="text-black">
-                {cartItems.length >= 1 ? cartItems.length : 0}
-              </p>
+              <p className="text-black">{cartItemCount}</p>
             </div>
           </div>
           <Cart />

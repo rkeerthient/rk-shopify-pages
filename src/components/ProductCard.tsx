@@ -43,14 +43,16 @@ const ProductCard = ({ result }: CardProps<any>) => {
                   className={` group-hover:opacity-75 ${active.id === item.id ? `block` : `hidden`}`}
                 />
               ) : (
-                <Image
-                  key={index}
-                  layout="fixed"
-                  width={300}
-                  height={380}
-                  image={c_greysonProductPhoto}
-                  className={` group-hover:opacity-75 ${active.id === item.id ? `block` : `hidden`}`}
-                />
+                c_greysonProductPhoto && (
+                  <Image
+                    key={index}
+                    layout="fixed"
+                    width={300}
+                    height={380}
+                    image={c_greysonProductPhoto}
+                    className={` group-hover:opacity-75 ${active.id === item.id ? `block` : `hidden`}`}
+                  />
+                )
               )
             )}
           </div>
