@@ -27,9 +27,7 @@ interface LineItemProps {
 }
 
 export default function Cart() {
-  const {   cartItems } = useSelector(
-    (state: { cart: CartState }) => state.cart
-  );
+  const { cartItems } = useSelector((state: { cart: CartState }) => state.cart);
 
   const dispatch = useDispatch();
   const { isOpen } = useSelector((state: { modal: ModalProps }) => state.modal);
@@ -45,6 +43,7 @@ export default function Cart() {
     try {
       let request = await fetch(`${checkout}`);
       const res: CartRes = await request.json();
+      localStorage.removeItem("localCart");
       window.location.href = res.checkoutCreate.checkout.webUrl;
     } catch (error) {
       console.log(error);

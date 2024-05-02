@@ -25,7 +25,11 @@ import { useDispatch } from "react-redux";
 import PageLayout from "../components/page-layout";
 import "../index.css";
 import { addToCart } from "../redux/cartSlice";
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronLeftIcon,
+  MinusIcon,
+  PlusIcon,
+} from "@heroicons/react/24/outline";
 import { BsCircle } from "react-icons/bs";
 
 /**
@@ -169,6 +173,12 @@ const Inner = ({ document }: any) => {
     >
       <div className="bg-white">
         <div className="pb-16 pt-6 sm:pb-24">
+          <a
+            href="/search.html"
+            className="flex items-center hover:underline hover:cursor-pointer"
+          >
+            <ChevronLeftIcon className="h-4 w-4" /> Back to all Items
+          </a>
           <div className="mx-auto mt-8 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
               <div className="lg:col-span-5 lg:col-start-8">

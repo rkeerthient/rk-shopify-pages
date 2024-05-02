@@ -51,7 +51,7 @@ const ProfessionalPage = ({ verticalKey }: verticalKey) => {
                 CardComponent={ProductCard}
                 customCssClasses={{
                   verticalResultsContainer:
-                    "mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:grid lg:grid-cols-4 lg:space-x-0 border  border-gray-200",
+                    "mx-4 inline-flex space-x-8 sm:mx-6 lg:mx-0 lg:grid lg:grid-cols-4 lg:space-x-0 border  border-gray-200 mb-4",
                 }}
               />
               <Pagination />
