@@ -135,7 +135,12 @@ const Product: Template<TemplateRenderProps> = ({ document }) => {
 export default Product;
 
 const Inner = ({ document }: any) => {
-  const { c_greysonProductVariants, name, richTextDescriptionV2 } = document;
+  const {
+    c_greysonProductVariants,
+    name,
+    richTextDescriptionV2,
+    c_greysonProductPhoto,
+  } = document;
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [sizeVariant, setSizeVariant] = useState<any>({});
@@ -196,15 +201,27 @@ const Inner = ({ document }: any) => {
                 <h2 className="sr-only">Images</h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
-                  <Image
-                    image={currentProduct.c_greysonProductPhoto}
-                    className={classNames(
-                      currentProduct.c_greysonProductPhoto
-                        ? "lg:col-span-2 lg:row-span-2"
-                        : "hidden lg:block",
-                      "rounded-lg"
-                    )}
-                  ></Image>
+                  {currentProduct.c_greysonProductPhoto ? (
+                    <Image
+                      image={currentProduct.c_greysonProductPhoto}
+                      className={classNames(
+                        currentProduct.c_greysonProductPhoto
+                          ? "lg:col-span-2 lg:row-span-2"
+                          : "hidden lg:block",
+                        "rounded-lg"
+                      )}
+                    ></Image>
+                  ) : (
+                    <Image
+                      image={c_greysonProductPhoto}
+                      className={classNames(
+                        c_greysonProductPhoto
+                          ? "lg:col-span-2 lg:row-span-2"
+                          : "hidden lg:block",
+                        "rounded-lg"
+                      )}
+                    ></Image>
+                  )}
                 </div>
               </div>
 
