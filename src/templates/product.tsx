@@ -153,11 +153,13 @@ const Inner = ({ document }: any) => {
         quantity,
         colorFamily: currentProduct.c_greysonColorFamily,
         colorName: currentProduct.color,
-        amount: currentProduct.c_greysonOldPrice.value,
+        amount: currentProduct.price.value,
         id: sizeVariant.entityId,
       })
     );
   };
+
+  
   return (
     <div
       className="centered-container text-[#2f2f2f]"

@@ -27,7 +27,9 @@ interface LineItemProps {
 }
 
 export default function Cart() {
-  const { cartItems } = useSelector((state: { cart: CartState }) => state.cart);
+  const {   cartItems } = useSelector(
+    (state: { cart: CartState }) => state.cart
+  );
 
   const dispatch = useDispatch();
   const { isOpen } = useSelector((state: { modal: ModalProps }) => state.modal);

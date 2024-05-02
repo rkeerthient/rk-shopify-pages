@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { CartState, setInitialCart } from "../redux/cartSlice";
+import { CartState } from "../redux/cartSlice";
 import { toggleModal } from "../redux/modalSlice";
 import Cart from "./cart";
 import { CartIcon } from "./icons";
@@ -28,14 +28,6 @@ const Header = () => {
   useEffect(() => {
     localStorage.setItem("localCart", JSON.stringify(cartItems));
   }, [cartItems]);
-
-  useEffect(() => {
-    const localCart = localStorage.getItem("localCart");
-    if (localCart) {
-      dispatch(setInitialCart(JSON.parse(localCart)));
-    }
-  }, [dispatch]);
-
   const linkDoms = links.map((link) => (
     <div key={link.label}>
       <a href={link.url} target="_blank" rel="noreferrer">
@@ -60,7 +52,9 @@ const Header = () => {
           >
             <CartIcon />
             <div className="absolute top-[-0.5rem] right-[-0.5rem] w-6 h-6 rounded-full bg-primary-light flex items-center justify-center">
-              <p className="text-black">{cartItems.length}</p>
+              <p className="text-black">
+                {cartItems.length >= 1 ? cartItems.length : 0}
+              </p>
             </div>
           </div>
           <Cart />
