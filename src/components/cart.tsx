@@ -146,7 +146,7 @@ export default function Cart() {
                                       <div className="flex">
                                         <div
                                           onClick={() => handleRemove(id)}
-                                          className="hover:cursor-pointer font-medium text-indigo-600 hover:text-indigo-500"
+                                          className="hover:cursor-pointer font-medium text-[#261d09] hover:text-[#261d09] hover:opacity-85"
                                         >
                                           Remove
                                         </div>
@@ -181,7 +181,7 @@ export default function Cart() {
                       <div className="mt-6">
                         <div
                           onClick={handleCheckout}
-                          className="hover:cursor-pointer flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          className="opacity-90 hover:cursor-pointer flex items-center justify-center rounded-md border border-transparent bg-[#261d09] px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-[#261d09] hover:opacity-100"
                         >
                           Checkout
                         </div>
@@ -189,7 +189,7 @@ export default function Cart() {
                       <div className="mt-3 gap-4 flex flex-col justify-center text-center text-sm text-gray-500">
                         <div>or</div>
                         <div
-                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                          className="font-medium text-[#261d09] hover:text-[#261d09] hover:cursor-pointer"
                           onClick={closeCart}
                         >
                           Continue Shopping

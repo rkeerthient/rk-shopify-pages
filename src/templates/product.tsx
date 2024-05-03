@@ -174,7 +174,7 @@ const Inner = ({ document }: any) => {
       <div className="bg-white">
         <div className="pb-16 pt-6 sm:pb-24">
           <a
-            href="/search.html"
+            href="/"
             className="flex items-center hover:underline hover:cursor-pointer"
           >
             <ChevronLeftIcon className="h-4 w-4" /> Back to all Items
@@ -376,7 +376,7 @@ const Inner = ({ document }: any) => {
                   )}
                   <div
                     onClick={addToCartHandle}
-                    className={`mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                    className={`mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-[#261d09] px-8 py-3 text-base font-medium text-white hover:bg-[#261d09] focus:outline-none focus:ring-2 focus:ring-[#261d09] focus:ring-offset-2 ${
                       JSON.stringify(sizeVariant) !== "{}"
                         ? "cursor-pointer focus:outline-none"
                         : "cursor-not-allowed opacity-25"
