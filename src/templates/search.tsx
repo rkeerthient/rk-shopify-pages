@@ -17,7 +17,7 @@ export const config: TemplateConfig = {
 };
 
 export const getPath = () => {
-  return `search.html`;
+  return `index.html`;
 };
 
 export const getHeadConfig: GetHeadConfig<
