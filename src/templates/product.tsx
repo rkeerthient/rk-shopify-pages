@@ -359,12 +359,19 @@ const Inner = ({ document }: any) => {
                       />
                     </div>
                   </div>
-                  {sizeVariant.inventory <= 5 && (
+                  {sizeVariant.inventory <= 10 ? (
                     <div className="my-4 flex gap-2 items-center">
                       <div>
                         <BsCircle className="h-2 w-2 bg-red-500 rounded-full" />
                       </div>
-                      <div> Low stock: {sizeVariant.inventory} left</div>
+                      <div> Low on stock: {sizeVariant.inventory} left</div>
+                    </div>
+                  ) : (
+                    <div className="my-4 flex gap-2 items-center">
+                      <div>
+                        <BsCircle className="h-2 w-2 bg-green-500 rounded-full" />
+                      </div>
+                      <div> In stock: {sizeVariant.inventory} left</div>
                     </div>
                   )}
                   <div
