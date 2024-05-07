@@ -151,6 +151,7 @@ const Inner = ({ document }: any) => {
   const [currentProduct, setCurrentProduct] = useState(
     c_greysonProductVariants[0]
   );
+  console.log(JSON.stringify(currentProduct));
 
   const addToCartHandle = async () => {
     const imgUrl = currentProduct.c_greysonProductPhoto.url;
@@ -359,7 +360,7 @@ const Inner = ({ document }: any) => {
                       />
                     </div>
                   </div>
-                  {sizeVariant.inventory <= 10 ? (
+                  {sizeVariant.inventory && sizeVariant.inventory <= 10 ? (
                     <div className="my-4 flex gap-2 items-center">
                       <div>
                         <BsCircle className="h-2 w-2 bg-red-500 rounded-full" />
@@ -371,6 +372,7 @@ const Inner = ({ document }: any) => {
                       <div>
                         <BsCircle className="h-2 w-2 bg-green-500 rounded-full" />
                       </div>
+                      {/* <div> In stock</div> */}
                       <div> In stock: {sizeVariant.inventory} left</div>
                     </div>
                   )}
