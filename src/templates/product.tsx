@@ -371,8 +371,8 @@ const Inner = ({ document }: any) => {
                       <div>
                         <BsCircle className="h-2 w-2 bg-green-500 rounded-full" />
                       </div>
-                      {/* <div> In stock</div> */}
-                      <div> In stock: {sizeVariant.inventory} left</div>
+                      <div> In stock</div>
+                      {/* <div> In stock: {sizeVariant.inventory} left</div> */}
                     </div>
                   )}
                   <div
