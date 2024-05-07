@@ -151,7 +151,6 @@ const Inner = ({ document }: any) => {
   const [currentProduct, setCurrentProduct] = useState(
     c_greysonProductVariants[0]
   );
-  console.log(JSON.stringify(currentProduct));
 
   const addToCartHandle = async () => {
     const imgUrl = currentProduct.c_greysonProductPhoto.url;
